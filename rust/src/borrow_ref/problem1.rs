@@ -1,3 +1,6 @@
+//! #Reference:
+//! https://stackoverflow.com/questions/58295535/cannot-borrow-self-as-mutable-more-than-once-at-a-time-when-returning-a-resul
+
 struct Foo<'a>(&'a str);
 
 impl<'a: 'b, 'b> Foo<'a> {
