@@ -5,3 +5,10 @@ unsafe fn main() {
     let p: *const i32 = null();
     println!("Hello, world!");
 }
+
+#[test]
+fn test() {
+    unsafe {
+        main();
+    }
+}

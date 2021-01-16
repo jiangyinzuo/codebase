@@ -1,5 +1,3 @@
-mod trait_demo;
-
 trait Flyable {
     fn fly(&self);
 }
@@ -19,12 +17,13 @@ impl Flyable for Duck {
     }
 }
 
-fn main() {
-    let animals: [&dyn Flyable; 2] = [&Dog{}, &Duck{}];
+#[test]
+fn demo2_test() {
+    let animals: [&dyn Flyable; 2] = [&Dog {}, &Duck {}];
     for animal in animals.iter() {
         animal.fly();
     }
-    let animal_vec: Vec<&dyn Flyable> = vec![&Dog{}, &Duck{}];
+    let animal_vec: Vec<&dyn Flyable> = vec![&Dog {}, &Duck {}];
     for animal in animal_vec {
         animal.fly();
     }

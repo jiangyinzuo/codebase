@@ -8,6 +8,7 @@ pub fn naive_bytes_iter(s: &str) -> u64 {
 }
 
 use std::io::stdin;
+
 fn main() {
     let mut buffer = String::new();
     stdin().read_line(&mut buffer).unwrap();

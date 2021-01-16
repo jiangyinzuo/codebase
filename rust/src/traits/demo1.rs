@@ -30,16 +30,11 @@ impl SayHello for Person {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use crate::trait_demo::*;
-
-    #[test]
-    fn hello() {
-        let p1 = Person{};
-        let p: &dyn Say2 = &p1;
-        p.say();
-        let p: &dyn Say = &p1;
-        p.say();
-    }
+#[test]
+fn hello() {
+    let p1 = Person {};
+    let p: &dyn Say2 = &p1;
+    p.say();
+    let p: &dyn Say = &p1;
+    p.say();
 }

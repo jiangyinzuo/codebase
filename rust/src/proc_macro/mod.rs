@@ -24,3 +24,13 @@ fn token_test() {
         assert_eq!(i.to_string(), j);
     }
 }
+
+#[test]
+fn multiple_test() {
+    let k = vec!["a", "b", "c"];
+    let v = vec![1, 2, 3];
+    let tokens = quote!(
+        #( #k => println!("{}", #v), )*
+    );
+    println!("{}", tokens);
+}

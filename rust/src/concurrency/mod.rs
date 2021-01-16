@@ -2,7 +2,8 @@ use std::thread;
 use std::sync::mpsc;
 use std::sync::mpsc::channel;
 
-fn main() {
+#[test]
+fn concurrent_test() {
     let (tx1, rx1) = channel::<i32>();
     let (tx2, rx2) = channel::<i32>();
     let handle1 = thread::spawn(move || {

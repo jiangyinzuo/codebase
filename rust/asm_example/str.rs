@@ -1,11 +1,12 @@
-pub fn show(c: char) {
+fn show(c: char) {
     println!("{}", c);
 }
 
-/// rustc -O --crate-type=lib --emit asm foo.rs
-pub fn bar() {
+/// rustc -O --emit asm str
+fn main() {
     let mut a = "hello".chars();
     for c in a {
         show(c);
     }
+
 }
