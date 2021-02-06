@@ -18,3 +18,7 @@ pattern_matching = { path = "src/pattern_matching" }
 [[bin]]
 name = "extern_c"
 path = "src/extern_c/extern_c.rs"
+
+[[bin]]
+name = "foo"
+path = "src/unsafe_demo/foo.rs"

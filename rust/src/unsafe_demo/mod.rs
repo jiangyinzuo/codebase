@@ -1,3 +1,5 @@
+mod raw_ptr;
+
 use std::ptr::null;
 
 unsafe fn main() {
