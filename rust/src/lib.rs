@@ -9,3 +9,4 @@ mod traits;
 mod unsafe_demo;
 mod data_structure;
 mod smart_pointer;
+mod layout;

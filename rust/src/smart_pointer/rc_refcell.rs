@@ -20,11 +20,11 @@ struct Text {
 
 #[test]
 fn test() {
-    let mut color = Rc::new(RefCell::new(Color::Red));
+    let color = Rc::new(RefCell::new(Color::Red));
     let pane = Pane {
         color: Rc::clone(&color)
     };
-    let mut text = Text {
+    let text = Text {
         color: Rc::clone(&color)
     };
     color.replace(Color::Green);
