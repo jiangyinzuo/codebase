@@ -12,7 +12,7 @@ class Buffer {
     std::cout << "constructor " << id_ << std::endl;
   }
   Buffer(const Buffer& buffer) : id_(next_id++), buf(new char[buffer.n]) {
-    std::cout << "copy constructor" << id_ << std::endl;
+    std::cout << "copy constructor " << id_ << std::endl;
     used = buffer.used.load(std::memory_order_acquire);
     n = buffer.n;
 
@@ -20,7 +20,8 @@ class Buffer {
   }
 
   Buffer(Buffer&& buffer) noexcept : id_(next_id++), n(buffer.n) {
-    std::cout << "move constructor " << id_ << std::endl;
+    std::cout << "move constructor: " << buffer.id_ << " to " << id_
+              << std::endl;
     used = buffer.used.load(std::memory_order_acquire);
     buf = buffer.buf;
     buffer.buf = nullptr;  // avoid double free
@@ -54,7 +55,8 @@ int Buffer::next_id = 0;
 class Allocator {
  public:
   explicit Allocator(Buffer& buffer) : buffer_(buffer) {
-    std::cout << "construct Allocator by &, buffer_id: " << buffer_.GetID() << std::endl;
+    std::cout << "construct Allocator by &, buffer_id: " << buffer_.GetID()
+              << std::endl;
   }
 
   explicit Allocator(Buffer&& buffer) : buffer_(std::move(buffer)) {
@@ -86,6 +88,28 @@ void test_rvalue() {
   allocator2.GetBuffer();
 }
 
+void test_vector_push_back() {
+  std::cout << "------------test_vector_push_back-----------" << std::endl;
+  std::vector<Buffer> vec;
+  vec.reserve(7);
+  std::cout << "start push_back" << std::endl;
+  for (size_t i = 0; i < 5; ++i) {
+    std::cout << "i=" << i << ": ";
+    vec.push_back(Buffer{i});
+  }
+}
+
+void test_vector_emplace_back() {
+  std::cout << "------------test_vector_emplace_back-----------" << std::endl;
+  std::vector<Buffer> vec;
+  vec.reserve(7);
+  std::cout << "start emplace_back" << std::endl;
+  for (size_t i = 0; i < 5; ++i) {
+    std::cout << "i=" << i << ": ";
+    vec.emplace_back(i);
+  }
+}
+
 int main() {
   std::string s1{"hello"};
   std::string s2{std::move(s1)};
@@ -93,5 +117,7 @@ int main() {
   std::cout << s2.size() << std::endl;
   test_move();
   test_rvalue();
+  test_vector_push_back();
+  test_vector_emplace_back();
   return 0;
 }
